@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 /*
 * Copyright (C) 2023 The Android Open Source Project
 *
@@ -27,7 +29,7 @@ android {
     defaultConfig {
         applicationId = "com.example.unscramble"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -50,9 +52,12 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-
+    kotlin{
+        compilerOptions{
+            jvmTarget.set(JvmTarget.JVM_1_8)
+        }
     }
+
     buildFeatures {
         compose = true
     }
