@@ -69,8 +69,8 @@ android {
 }
 
 dependencies {
-    implementation(platform("androidx.compose:compose-bom:2025.12.00"))
-    implementation("androidx.activity:activity-compose:1.12.1")
+    implementation(platform("androidx.compose:compose-bom:2025.12.01"))
+    implementation("androidx.activity:activity-compose:1.12.2")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
