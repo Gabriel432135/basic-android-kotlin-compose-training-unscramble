@@ -82,4 +82,10 @@ dependencies {
 
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     debugImplementation("androidx.compose.ui:ui-tooling")
+
+
+    androidTestImplementation(platform("androidx.compose:compose-bom:2025.12.01"))
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+
+    testImplementation("junit:junit:4.13.2")
 }
