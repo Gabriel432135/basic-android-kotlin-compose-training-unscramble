@@ -6,6 +6,7 @@ import com.example.unscramble.ui.GameViewModel
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertTrue
+import org.junit.Assert.assertNotEquals
 import org.junit.Test
 
 class GameViewModelTest {
@@ -38,6 +39,24 @@ class GameViewModelTest {
 
         assertEquals(0, currentGameUiState.score)
         assertTrue(currentGameUiState.isGuessedWordWrong)
+    }
+
+    @Test
+    fun gameViewModel_Initialization_FirstWordLoaded() {
+        val gameUiState = viewModel.uiState.value
+        val unScrambledWord = getUnscrambledWord(gameUiState.currentScrambledWord)
+        // Confirma que a palavra está embaralhada
+        assertNotEquals(unScrambledWord, gameUiState.currentScrambledWord)
+        // Confirma que o jogo começa com a primeira palavra
+        assertTrue(gameUiState.currentWordCount == 1)
+        // Confirma que o score começa em 0
+        assertTrue(gameUiState.score == 0)
+        // Confirma que o erro começa em false
+        assertFalse(gameUiState.isGuessedWordWrong)
+        // Confirma que o jogo não está finalizado
+        assertFalse(gameUiState.isGameOver)
+        // Confirma que o usuário ainda não digitou nenhuma palavra
+        assertEquals("", viewModel.userGuess)
     }
 
 
