@@ -1,5 +1,6 @@
 package com.example.unscramble.ui.test
 
+import com.example.unscramble.data.MAX_NO_OF_WORDS
 import com.example.unscramble.data.SCORE_INCREASE
 import com.example.unscramble.data.getUnscrambledWord
 import com.example.unscramble.ui.GameViewModel
@@ -37,7 +38,10 @@ class GameViewModelTest {
 
         val currentGameUiState = viewModel.uiState.value
 
+        // Confirma que o score continua como zero
         assertEquals(0, currentGameUiState.score)
+
+        // Confirma que o erro está setado como true
         assertTrue(currentGameUiState.isGuessedWordWrong)
     }
 
@@ -57,6 +61,30 @@ class GameViewModelTest {
         assertFalse(gameUiState.isGameOver)
         // Confirma que o usuário ainda não digitou nenhuma palavra
         assertEquals("", viewModel.userGuess)
+    }
+
+    @Test
+    fun gameViewModel_AllWordsGuessed_UiStateUpdatedCorrectly() {
+        var expectedScore = 0
+        var currentGameUiState = viewModel.uiState.value
+        var correctPlayerWord = getUnscrambledWord(currentGameUiState.currentScrambledWord)
+        repeat(MAX_NO_OF_WORDS) {
+            expectedScore += SCORE_INCREASE
+            viewModel.updateUserGuess(correctPlayerWord)
+            viewModel.checkUserGuess()
+
+            currentGameUiState = viewModel.uiState.value
+            correctPlayerWord = getUnscrambledWord(currentGameUiState.currentScrambledWord)
+
+            // Confirma que depois de cada resposta correta, o score aumenta conforme o esperado
+            assertEquals(expectedScore, currentGameUiState.score)
+        }
+        // Confirma que após o número máximo de respostas, o número de palavras é setado para MAX_NO_OF_WORDS
+        assertEquals(MAX_NO_OF_WORDS, currentGameUiState.currentWordCount)
+
+        // Confirma que depois de 10 respostas corretas, o jogo está finalizado
+        assertTrue(currentGameUiState.isGameOver)
+
     }
 
 
